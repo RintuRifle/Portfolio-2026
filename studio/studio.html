@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio — Pintu Jiya</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <link rel="stylesheet" href="studio.css">
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ─────────────────────────────────── -->
+<div id="login-screen" class="login-screen">
+    <div class="login-card">
+        <div class="login-logo">
+            <i class="fas fa-pen-nib"></i>
+            <h1>Studio</h1>
+            <p>Private author workspace</p>
+        </div>
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="author@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <div id="login-error" class="login-error hidden"></div>
+            <button type="submit" id="login-btn" class="btn-primary" style="justify-content:center;padding:12px;">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ── STUDIO APP ───────────────────────────────────── -->
+<div id="studio-app" class="studio-app hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-pen-nib"></i>
+                <span>Studio</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button id="theme-toggle-btn" class="btn-icon" title="Toggle theme">
+                    <i class="far fa-sun"></i>
+                </button>
+                <button id="logout-btn" class="btn-icon" title="Sign out">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+        <button id="new-post-btn" class="btn-new-post">
+            <i class="fas fa-plus"></i> New Post
+        </button>
+        <div class="sidebar-section-label">All Posts</div>
+        <div id="post-list" class="post-list">
+            <div class="post-list-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
+        </div>
+    </aside>
+
+    <!-- Editor -->
+    <main class="editor-area">
+        <div id="editor-placeholder" class="editor-placeholder">
+            <i class="fas fa-pen-nib"></i>
+            <p>Select a post or create a new one</p>
+        </div>
+
+        <div id="post-editor" class="post-editor hidden">
+            <!-- Header -->
+            <div class="editor-header">
+                <div class="editor-header-left">
+                    <span id="post-status-badge" class="status-badge draft">Draft</span>
+                </div>
+                <div class="editor-header-right">
+                    <div class="toggle-group">
+                        <label class="toggle-label">Published</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-published">
+                            <span class="toggle-track"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-group">
+                        <label class="toggle-label">Public</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-public" checked>
+                            <span class="toggle-track"></span>
+                        </label>
+                    </div>
+                    <button id="save-btn" class="btn-primary">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <button id="delete-btn" class="btn-danger" title="Delete post">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Meta -->
+            <div class="editor-meta">
+                <input type="text" id="post-title" class="input-title" placeholder="Post title...">
+                <div class="meta-row">
+                    <div class="meta-field">
+                        <label>Slug</label>
+                        <input type="text" id="post-slug" class="input-meta" placeholder="post-slug-here">
+                    </div>
+                    <div class="meta-field">
+                        <label>Tags <span class="hint">(comma separated)</span></label>
+                        <input type="text" id="post-tags" class="input-meta" placeholder="javascript, webdev">
+                    </div>
+                    <div class="meta-field">
+                        <label>Cover Image URL</label>
+                        <input type="text" id="post-cover" class="input-meta" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="meta-field">
+                    <label>Excerpt</label>
+                    <input type="text" id="post-excerpt" class="input-meta" placeholder="Short summary shown on blog cards...">
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="editor-pane-tabs">
+                <button class="tab-btn active" data-tab="write">
+                    <i class="fas fa-edit"></i> Write
+                </button>
+                <button class="tab-btn" data-tab="preview">
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+                <div class="editor-stats">
+                    <span id="word-count">0 words</span>
+                    <span class="dot">·</span>
+                    <span id="read-time-estimate">1 min read</span>
+                </div>
+            </div>
+
+            <!-- Panes -->
+            <div class="editor-panes">
+                <textarea id="post-content" class="editor-textarea"
+                    placeholder="Write your post in Markdown...&#10;&#10;## Introduction&#10;&#10;**Bold**, *italic*, `inline code`&#10;&#10;```js&#10;const hello = 'world';&#10;```"></textarea>
+                <div id="preview-pane" class="preview-pane hidden"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="studio.js"></script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pintu Jiya | Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Devicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Add the theme-toggle button and background style picker to the navbar -->
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-controls">
+                <!-- Live Visitor Counter -->
+                <div class="live-counter" title="Live Page Visits">
+                    <span class="pulse-dot"></span>
+                    <span class="visit-count-label">LIVE:</span>
+                    <span id="visit-count">...</span>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <!-- Background Style Picker -->
+                <div class="bg-picker" id="bg-picker">
+                    <button class="bg-picker-trigger" aria-label="Change background style">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                    </button>
+                    <div class="bg-picker-menu">
+                        <button class="bg-option" data-bg="circuit" title="Circuit"><i class="fas fa-microchip"></i><span>Circuit</span></button>
+                        <button class="bg-option" data-bg="waves" title="Waves"><i class="fas fa-water"></i><span>Waves</span></button>
+                        <button class="bg-option" data-bg="spiral" title="Spiral"><i class="fas fa-circle-notch"></i><span>Spiral</span></button>
+                        <button class="bg-option" data-bg="constellation" title="Stars"><i class="fas fa-star"></i><span>Stars</span></button>
+                        <button class="bg-option" data-bg="tree" title="Tree"><i class="fas fa-tree"></i><span>Tree</span></button>
+                        <button class="bg-option" data-bg="none" title="None"><i class="fas fa-ban"></i><span>None</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-links" style="align-items: center;">
+                <a href="#home" class="active">HOME</a>
+                <a href="#work">WORK</a>
+                <a href="#dsa">CONTESTS & DSA</a>
+                <a href="#about">ABOUT</a>
+                <a href="#blog">BLOG</a>
+                <a href="#contact">CONTACT</a>
+                <!-- Downloadable resume link -->
+                <!-- added on 21/05/2026 -->
+                <a href="assets/resume/New_Resume.pdf" class="nav-resume-btn" target="_blank" download="New_Resume.pdf">RESUME <i class="far fa-file-alt" style="font-size: 0.75rem; margin-left: 4px;"></i></a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header id="home" class="hero">
+            <div class="hero-content">
+                <div class="avatar-container">
+                    <img src="https://github.com/RintuRifle.png" alt="Akshit Kumar Tiwari" class="avatar">
+                </div>
+                
+                <div class="hero-title">
+                    <h1>Pintu Jiya <i class="fas fa-bolt hero-bolt"></i></h1>
+                    <span class="role" id="role-text">Software Engineer</span>
+                </div>
+
+                <p class="bio">
+                    Turning complex problems into <strong>clean</strong>, <strong>efficient</strong>, and <strong>scalable</strong> software solutions.
+                </p>
+
+                <p class="social-label">Social Links</p>
+                <div class="social-pills">
+                    <a href="https://github.com/RintuRifle" target="_blank" class="pill">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="#" class="pill">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="#" class="pill">
+                        <i class="far fa-envelope"></i> Email
+                    </a>
+                    <a href="#" class="pill">
+                        <i class="fas fa-ellipsis-h"></i> More
+                    </a>
+                </div>
+
+                <!-- Hero decoration: bottom-left stats strip -->
+                <div class="hero-deco" aria-hidden="true">
+                    <span class="deco-tag">&lt;Akshit /&gt;</span>
+                    <span class="deco-dot"></span>
+                    <span class="deco-tag">B.E. CSE</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Work / GitHub Section -->
+            <section id="work" class="section">
+                <h2 class="section-title">Work</h2>
+                
+                <!-- Stats Overview -->
+                <div class="stats-overview">
+                    <div class="stat-item">
+                        <span class="stat-label">Public Repos</span>
+                        <strong id="gh-public-repos">--</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Followers</span>
+                        <strong id="gh-followers">--</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Stars</span>
+                        <strong id="gh-total-stars">--</strong>
+                    </div>
+                </div>
+
+                <div id="gh-top-repos" class="projects-grid">
+                    <div class="stylish-loader-container" style="grid-column: 1/-1;">
+                        <div class="stylish-loader-animation">
+                            <div class="stylish-loader-ring"></div>
+                            <div class="stylish-loader-inner"></div>
+                            <div class="stylish-loader-core"></div>
+                        </div>
+                        <div class="stylish-loader-bars">
+                            <div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div>
+                        </div>
+                        <div class="stylish-loader-text">Fetching Repositories...</div>
+                    </div>
+                </div>
+                
+                <div class="center-btn">
+                    <a href="https://github.com/RintuRifle" target="_blank" class="action-btn">View All Works</a>
+                </div>
+            </section>
+
+            <!-- Codeforces Section -->
+            <section id="dsa" class="section">
+                <h2 class="section-title">Codeforces</h2>
+                
+                <div class="cf-card" style="margin-bottom: 24px;">
+                    <div class="cf-header">
+                        <h3>Rating Progression</h3>
+                        <div class="cf-rating">Current: <strong id="cf-current-rating">--</strong></div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="stylish-loader-container">
+                            <div class="stylish-loader-animation">
+                                <div class="stylish-loader-ring"></div>
+                                <div class="stylish-loader-inner"></div>
+                                <div class="stylish-loader-core"></div>
+                            </div>
+                            <div class="stylish-loader-bars">
+                                <div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div>
+                            </div>
+                            <div class="stylish-loader-text">Analyzing Codeforces...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leetcode-calendar">
+                    <div class="calendar-header">
+                        <button id="cf-prev-month" class="nav-btn" aria-label="Previous Month"><i class="fas fa-chevron-left"></i></button>
+                        <div class="month-year-display">
+                            <span class="month" id="cf-month">Month</span>
+                            <span class="year" id="cf-year">Year</span>
+                        </div>
+                        <button id="cf-next-month" class="nav-btn" aria-label="Next Month"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="cf-calendar-grid">
+                        <div class="stylish-loader-container" style="min-height: 150px; grid-column: 1/-1;">
+                            <div class="stylish-loader-animation" style="width: 50px; height: 50px;">
+                                <div class="stylish-loader-ring"></div>
+                                <div class="stylish-loader-inner"></div>
+                                <div class="stylish-loader-core"></div>
+                            </div>
+                            <div class="stylish-loader-text" style="font-size: 0.65rem; margin-top: 8px;">Fetching Activity...</div>
+                        </div>
+                    </div>
+                    <div class="calendar-x-axis" id="cf-calendar-x-axis"></div>
+                </div>
+
+                <div class="center-btn" style="margin-top: 24px; margin-bottom: 40px;">
+                    <a href="https://codeforces.com/profile/RintuRifle" target="_blank" class="action-btn">
+                        <i class="fas fa-fire" style="color: #ef4444; margin-right: 4px;"></i> View Codeforces Profile
+                    </a>
+                </div>
+
+                <!-- LeetCode Daily Activity heatmap -->
+                <div style="margin-top: 60px;">
+                    <h2 class="section-title">LeetCode Activity</h2>
+                    <div class="stats-overview" style="margin-bottom: 24px; padding-bottom: 24px;">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Solved</span>
+                        <strong id="lc-total-solved">--</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label" style="color: #10b981;">Easy</span>
+                        <strong id="lc-easy-solved">--</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label" style="color: #fbbf24;">Medium</span>
+                        <strong id="lc-medium-solved">--</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label" style="color: #ef4444;">Hard</span>
+                        <strong id="lc-hard-solved">--</strong>
+                    </div>
+                </div>
+                <div class="leetcode-calendar">
+                    <div class="calendar-header">
+                        <button id="lc-prev-month" class="nav-btn" aria-label="Previous Month"><i class="fas fa-chevron-left"></i></button>
+                        <div class="month-year-display">
+                            <span class="month" id="lc-month">Month</span>
+                            <span class="year" id="lc-year">Year</span>
+                        </div>
+                        <button id="lc-next-month" class="nav-btn" aria-label="Next Month"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="lc-calendar-grid">
+                        <div class="stylish-loader-container" style="min-height: 150px; grid-column: 1/-1;">
+                            <div class="stylish-loader-animation" style="width: 50px; height: 50px;">
+                                <div class="stylish-loader-ring"></div>
+                                <div class="stylish-loader-inner"></div>
+                                <div class="stylish-loader-core"></div>
+                            </div>
+                            <div class="stylish-loader-text" style="font-size: 0.65rem; margin-top: 8px;">Loading Heatmap...</div>
+                        </div>
+                    </div>
+                    <div class="calendar-x-axis" id="lc-calendar-x-axis"></div>
+                </div>
+
+                <div class="center-btn" style="margin-top: 24px;">
+                    <a href="https://leetcode.com/u/RintuRifle/" target="_blank" class="action-btn">
+                        <i class="fas fa-code" style="color: #fbbf24; margin-right: 4px;"></i> View LeetCode Profile
+                    </a>
+                </div>
+                </div>
+            </section>
+             
+
+            <!-- About Section -->
+            <section id="about" class="section about-section">
+                <h2 class="section-title">About Me</h2>
+                <p>
+                    I'm Pintu Jiya, a software engineer passionate about building clean and <mark>simple</mark> digital experiences. I enjoy transforming complex problems into elegant solutions with a strong focus on <mark>performance</mark>, thoughtful architecture, and the <mark>small details</mark> that make software feel polished and reliable.
+                </p>
+
+                <p>
+                    Backed by a solid foundation in competitive programming, I write highly <mark>optimized</mark> code and approach every problem with an analytical mindset. I’m constantly exploring modern technologies, design patterns, and best practices to build scalable, efficient, and maintainable software.
+                </p>
+
+                <div class="tech-stack-section">
+                    <h3 class="tech-title" style="text-align: center;">Tech Stack</h3>
+                    <div class="chakra-wrapper">
+                        <div class="chakra-container">
+                            <div class="chakra-center" id="chakra-center">
+                                <div class="chakra-center-content">
+                                    <i class="fas fa-code"></i>
+                                    <span>Hover an icon</span>
+                                </div>
+                            </div>
+                            <div class="chakra-ring" id="chakra-ring">
+                                <div class="chakra-orbit" style="--i: 0;">
+                                    <div class="chakra-icon" data-name="React" data-color="#61dafb"><i class="devicon-react-original"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 1;">
+                                    <div class="chakra-icon" data-name="Tailwind CSS" data-color="#06b6d4"><i class="devicon-tailwindcss-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 2;">
+                                    <div class="chakra-icon" data-name="Next.js" data-color="var(--text-primary)"><i class="devicon-nextjs-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 3;">
+                                    <div class="chakra-icon" data-name="TypeScript" data-color="#3178c6"><i class="devicon-typescript-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 4;">
+                                    <div class="chakra-icon" data-name="JavaScript" data-color="#f7df1e"><i class="devicon-javascript-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 5;">
+                                    <div class="chakra-icon" data-name="Node.js" data-color="#339933"><i class="devicon-nodejs-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 6;">
+                                    <div class="chakra-icon" data-name="MongoDB" data-color="#47a248"><i class="devicon-mongodb-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 7;">
+                                    <div class="chakra-icon" data-name="Git" data-color="#f05032"><i class="devicon-git-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 8;">
+                                    <div class="chakra-icon" data-name="Linux" data-color="#fcc624"><i class="devicon-linux-plain"></i></div>
+                                </div>
+                                <div class="chakra-orbit" style="--i: 9;">
+                                    <div class="chakra-icon" data-name="Python" data-color="#3776ab"><i class="devicon-python-plain"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog Section — powered by Supabase -->
+            <section id="blog" class="section">
+                <h2 class="section-title">Blog</h2>
+                <div id="blog-grid" class="blog-grid">
+                    <div class="stylish-loader-container" style="grid-column: 1/-1;">
+                        <div class="stylish-loader-animation">
+                            <div class="stylish-loader-ring"></div>
+                            <div class="stylish-loader-inner"></div>
+                            <div class="stylish-loader-core"></div>
+                        </div>
+                        <div class="stylish-loader-bars">
+                            <div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div><div class="stylish-loader-bar"></div>
+                        </div>
+                        <div class="stylish-loader-text">Loading Blog Posts...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">
+                    Have a project in mind or just want to say hi? Send me a message!
+                </p>
+                <div class="contact-wrapper">
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="contact-form" autocomplete="off">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Your Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="6" required></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Send Message</span>
+                                </button>
+                                <div id="form-status" class="form-status hidden"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="contact-info-container">
+                        <div class="contact-info-item">
+                            <div class="contact-icon-box"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-info-content">
+                                <h3>Email</h3>
+                                <a href="mailto:rishimuni797658@gmail.com">rishimuni797658@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-info-content">
+                                <h3>Location</h3>
+                                <p>Chennai, India</p>
+                            </div>
+                        </div>
+                        <div class="contact-socials">
+                            <a href="https://github.com/RintuRifle" target="_blank" class="social-link" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/rintu-jiya/" target="_blank" class="social-link" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://www.instagram.com/rintu_jiya/" target="_blank" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Pintu Jiya. All rights reserved.</p>
+            </div>
+            <button class="scroll-top" aria-label="Scroll to top" onclick="window.scrollTo(0,0)">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Post Modal -->
+    <div id="post-modal" class="post-modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <button class="modal-close" id="modal-close" aria-label="Close post">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-card">
+            <div id="modal-content-body"></div>
+        </div>
+    </div>
+
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <!-- Marked.js (markdown renderer) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Custom Rocket Scroll-to-Top -->
+    <div id="rocket-scroll-top" class="custom-rocket-wrapper" aria-label="Scroll to top" title="Blast off to top!">
+        <div class="rocket-body">
+            <div class="rocket-window"></div>
+        </div>
+        <div class="rocket-fin-left"></div>
+        <div class="rocket-fin-right"></div>
+        <div class="rocket-exhaust"></div>
+    </div>
+</body>
+</html>
